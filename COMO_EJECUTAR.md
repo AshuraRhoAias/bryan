@@ -1,8 +1,8 @@
 # ⚠️ CÓMO EJECUTAR EL PROYECTO CORRECTAMENTE
 
-## 🔴 ERROR COMÚN
+## 🔴 ERRORES COMUNES
 
-Si ves estos errores:
+### Error 1: "There are not servlet mapping specified..."
 ```
 "There are not servlet mapping specified in web.xml for DatabaseConnection servlet"
 "Class database.DatabaseConnection does not have a main method"
@@ -13,6 +13,18 @@ Si ves estos errores:
 **❌ NO HAGAS ESTO:**
 - Clic derecho en `DatabaseConnection.java` → Run File
 - Esto NO funcionará porque DatabaseConnection es solo una clase de utilidad
+
+### Error 2: "Attaching to localhost:9009 - Connection refused"
+```
+Attaching to localhost:9009
+Connection refused.
+```
+
+**Causa:** Estás usando **Debug** en lugar de **Run**.
+
+**✅ SOLUCIÓN:**
+- Usa **Run** (F6) en lugar de **Debug** (Ctrl+F5)
+- Ver guía completa: [SOLUCION_DEBUG_ERROR.md](SOLUCION_DEBUG_ERROR.md)
 
 ---
 
@@ -113,7 +125,9 @@ Clic derecho en LoginServlet.java → Run File
    - Espera a que compile
    - Debería decir "BUILD SUCCESSFUL"
 
-3. **Run** (o presiona `F6`)
+3. **Run** (o presiona `F6`) ⚠️ **NO uses Debug**
+   - ✅ Usa **Run** (F6) - botón ▶️ verde
+   - ❌ NO uses **Debug** (Ctrl+F5) - botón 🐞
    - NetBeans desplegará la aplicación en GlassFish/Tomcat
    - Se abrirá automáticamente tu navegador
 
