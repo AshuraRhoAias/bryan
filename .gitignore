@@ -1,0 +1,97 @@
+# ========================
+# Java
+# ========================
+*.class
+*.log
+*.ctxt
+
+# ========================
+# Compiled files
+# ========================
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# ========================
+# Maven
+# ========================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ========================
+# Gradle
+# ========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# ========================
+# NetBeans
+# ========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ========================
+# IntelliJ IDEA
+# ========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ========================
+# Eclipse
+# ========================
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+
+# ========================
+# VS Code
+# ========================
+.vscode/
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+
+# ========================
+# Environment / secrets
+# ========================
+.env
+.env.*
+*.keystore
+*.jks
+*.p12
+
+# ========================
+# Temporary files
+# ========================
+tmp/
+temp/
+*.swp
+*~
