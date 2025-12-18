@@ -23,12 +23,44 @@ private static DatabaseConnection instance;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✓ Conexión a base de datos establecida");
+            System.out.println("========================================");
+            System.out.println("✓ CONEXIÓN A BASE DE DATOS ESTABLECIDA");
+            System.out.println("  Base de datos: plataforma_iag");
+            System.out.println("  URL: " + URL);
+            System.out.println("  Usuario: " + USER);
+            System.out.println("========================================");
         } catch (ClassNotFoundException e) {
-            System.err.println("Error: Driver MySQL no encontrado");
+            System.err.println("========================================");
+            System.err.println("✗ ERROR: Driver MySQL no encontrado");
+            System.err.println("========================================");
+            System.err.println("Solución:");
+            System.err.println("1. Verificar que mysql-connector-j-9.3.0.jar esté en lib/");
+            System.err.println("2. Limpiar y recompilar el proyecto (Clean and Build)");
+            System.err.println("3. Verificar configuración de librerías en NetBeans");
+            System.err.println("========================================");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.err.println("Error al conectar con la base de datos");
+            System.err.println("========================================");
+            System.err.println("✗ ERROR: No se pudo conectar a la base de datos");
+            System.err.println("========================================");
+            System.err.println("URL intentada: " + URL);
+            System.err.println("Usuario: " + USER);
+            System.err.println("");
+            System.err.println("Posibles causas:");
+            System.err.println("1. MySQL no está ejecutándose");
+            System.err.println("   Solución: Iniciar MySQL Server");
+            System.err.println("");
+            System.err.println("2. La base de datos 'plataforma_iag' no existe");
+            System.err.println("   Solución: Ejecutar el script database/schema.sql");
+            System.err.println("   Comando: mysql -u root -p < database/schema.sql");
+            System.err.println("");
+            System.err.println("3. Credenciales incorrectas");
+            System.err.println("   Solución: Verificar USER y PASSWORD en DatabaseConnection.java");
+            System.err.println("");
+            System.err.println("4. Puerto incorrecto o MySQL en otra dirección");
+            System.err.println("   Solución: Verificar que MySQL esté en localhost:3306");
+            System.err.println("========================================");
+            System.err.println("Detalles del error:");
             e.printStackTrace();
         }
     }

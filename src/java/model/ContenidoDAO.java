@@ -17,8 +17,8 @@ public class ContenidoDAO {
      */
     public List<Contenido> obtenerPublicados() {
         List<Contenido> contenidos = new ArrayList<>();
-        String sql = "SELECT c.*, u.nombre as nombre_admin FROM Contenido c " +
-                    "INNER JOIN Usuario u ON c.id_admin = u.id_usuario " +
+        String sql = "SELECT c.*, u.nombre as nombre_admin FROM contenidos c " +
+                    "INNER JOIN usuarios u ON c.id_admin = u.id_usuario " +
                     "WHERE c.estado = 'publicado' " +
                     "ORDER BY c.fecha_publicacion DESC";
         
@@ -42,8 +42,8 @@ public class ContenidoDAO {
      */
     public List<Contenido> obtenerTodos() {
         List<Contenido> contenidos = new ArrayList<>();
-        String sql = "SELECT c.*, u.nombre as nombre_admin FROM Contenido c " +
-                    "INNER JOIN Usuario u ON c.id_admin = u.id_usuario " +
+        String sql = "SELECT c.*, u.nombre as nombre_admin FROM contenidos c " +
+                    "INNER JOIN usuarios u ON c.id_admin = u.id_usuario " +
                     "ORDER BY c.fecha_publicacion DESC";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -65,8 +65,8 @@ public class ContenidoDAO {
      * Obtiene un contenido por ID
      */
     public Contenido obtenerPorId(int id) {
-        String sql = "SELECT c.*, u.nombre as nombre_admin FROM Contenido c " +
-                    "INNER JOIN Usuario u ON c.id_admin = u.id_usuario " +
+        String sql = "SELECT c.*, u.nombre as nombre_admin FROM contenidos c " +
+                    "INNER JOIN usuarios u ON c.id_admin = u.id_usuario " +
                     "WHERE c.id_contenido = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -92,10 +92,10 @@ public class ContenidoDAO {
      */
     public List<Contenido> obtenerPorCategoria(int idCategoria) {
         List<Contenido> contenidos = new ArrayList<>();
-        String sql = "SELECT DISTINCT c.*, u.nombre as nombre_admin FROM Contenido c " +
-                    "INNER JOIN Usuario u ON c.id_admin = u.id_usuario " +
-                    "INNER JOIN Contenido_Categoria cc ON c.id_contenido = cc.id_contenido " +
-                    "WHERE cc.id_categoria = ? AND c.estado = 'publicado' " +
+        String sql = "SELECT DISTINCT c.*, u.nombre as nombre_admin FROM contenidos c " +
+                    "INNER JOIN usuarios u ON c.id_admin = u.id_usuario " +
+                    "INNER JOIN contenido_categorias cc ON c.id_contenido = cc.contenido_id " +
+                    "WHERE cc.categoria_id = ? AND c.estado = 'publicado' " +
                     "ORDER BY c.fecha_publicacion DESC";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -121,8 +121,8 @@ public class ContenidoDAO {
      */
     public List<Contenido> obtenerPorTipo(String tipo) {
         List<Contenido> contenidos = new ArrayList<>();
-        String sql = "SELECT c.*, u.nombre as nombre_admin FROM Contenido c " +
-                    "INNER JOIN Usuario u ON c.id_admin = u.id_usuario " +
+        String sql = "SELECT c.*, u.nombre as nombre_admin FROM contenidos c " +
+                    "INNER JOIN usuarios u ON c.id_admin = u.id_usuario " +
                     "WHERE c.tipo = ? AND c.estado = 'publicado' " +
                     "ORDER BY c.fecha_publicacion DESC";
         
@@ -148,7 +148,7 @@ public class ContenidoDAO {
      * Inserta un nuevo contenido
      */
     public int insertar(Contenido contenido) {
-        String sql = "INSERT INTO Contenido (titulo, cuerpo, tipo, id_admin, estado, vistas) VALUES (?, ?, ?, ?, ?, 0)";
+        String sql = "INSERT INTO contenidos (titulo, cuerpo, tipo, id_admin, estado, vistas) VALUES (?, ?, ?, ?, ?, 0)";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -178,7 +178,7 @@ public class ContenidoDAO {
      * Actualiza un contenido
      */
     public boolean actualizar(Contenido contenido) {
-        String sql = "UPDATE Contenido SET titulo = ?, cuerpo = ?, tipo = ?, estado = ? WHERE id_contenido = ?";
+        String sql = "UPDATE contenidos SET titulo = ?, cuerpo = ?, tipo = ?, estado = ? WHERE id_contenido = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -202,7 +202,7 @@ public class ContenidoDAO {
      * Incrementa el contador de vistas
      */
     public boolean incrementarVistas(int idContenido) {
-        String sql = "UPDATE Contenido SET vistas = vistas + 1 WHERE id_contenido = ?";
+        String sql = "UPDATE contenidos SET vistas = vistas + 1 WHERE id_contenido = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -221,7 +221,7 @@ public class ContenidoDAO {
      * Elimina un contenido
      */
     public boolean eliminar(int id) {
-        String sql = "DELETE FROM Contenido WHERE id_contenido = ?";
+        String sql = "DELETE FROM contenidos WHERE id_contenido = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -244,7 +244,7 @@ public class ContenidoDAO {
         eliminarCategorias(idContenido);
         
         // Luego inserta las nuevas
-        String sql = "INSERT INTO Contenido_Categoria (id_contenido, id_categoria) VALUES (?, ?)";
+        String sql = "INSERT INTO contenido_categorias (contenido_id, categoria_id) VALUES (?, ?)";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -265,10 +265,25 @@ public class ContenidoDAO {
     }
     
     /**
+     * Actualiza las categorías de un contenido (alias de asignarCategorias)
+     */
+    public boolean actualizarCategorias(int idContenido, String[] idsCategorias) {
+        if (idsCategorias == null || idsCategorias.length == 0) {
+            return eliminarCategorias(idContenido);
+        }
+
+        int[] ids = new int[idsCategorias.length];
+        for (int i = 0; i < idsCategorias.length; i++) {
+            ids[i] = Integer.parseInt(idsCategorias[i]);
+        }
+        return asignarCategorias(idContenido, ids);
+    }
+
+    /**
      * Elimina las categorías asociadas a un contenido
      */
     private boolean eliminarCategorias(int idContenido) {
-        String sql = "DELETE FROM Contenido_Categoria WHERE id_contenido = ?";
+        String sql = "DELETE FROM contenido_categorias WHERE contenido_id = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -287,7 +302,7 @@ public class ContenidoDAO {
      * Obtiene estadísticas de contenidos
      */
     public int contarTodos() {
-        String sql = "SELECT COUNT(*) FROM Contenido";
+        String sql = "SELECT COUNT(*) FROM contenidos";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              Statement stmt = conn.createStatement();

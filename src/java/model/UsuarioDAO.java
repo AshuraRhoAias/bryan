@@ -16,7 +16,7 @@ public class UsuarioDAO {
      * Busca un usuario por email y password
      */
     public Usuario login(String email, String password) {
-        String sql = "SELECT * FROM Usuario WHERE email = ? AND password_hash = ?";
+        String sql = "SELECT * FROM usuarios WHERE email = ? AND password_hash = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -39,7 +39,7 @@ public class UsuarioDAO {
      * Registra un nuevo usuario
      */
     public boolean registrar(Usuario usuario) {
-        String sql = "INSERT INTO Usuario (nombre, email, password_hash, rol) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (nombre, email, password_hash, rol) VALUES (?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -62,7 +62,7 @@ public class UsuarioDAO {
      * Verifica si un email ya está registrado
      */
     public boolean emailExiste(String email) {
-        String sql = "SELECT COUNT(*) FROM Usuario WHERE email = ?";
+        String sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -84,7 +84,7 @@ public class UsuarioDAO {
      * Obtiene un usuario por ID
      */
     public Usuario obtenerPorId(int id) {
-        String sql = "SELECT * FROM Usuario WHERE id_usuario = ?";
+        String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class UsuarioDAO {
      */
     public List<Usuario> obtenerTodos() {
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM Usuario ORDER BY fecha_registro DESC";
+        String sql = "SELECT * FROM usuarios ORDER BY fecha_registro DESC";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              Statement stmt = conn.createStatement();
@@ -126,7 +126,7 @@ public class UsuarioDAO {
      * Actualiza un usuario
      */
     public boolean actualizar(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nombre = ?, email = ?, rol = ? WHERE id_usuario = ?";
+        String sql = "UPDATE usuarios SET nombre = ?, email = ?, rol = ? WHERE id_usuario = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -149,7 +149,7 @@ public class UsuarioDAO {
      * Elimina un usuario
      */
     public boolean eliminar(int id) {
-        String sql = "DELETE FROM Usuario WHERE id_usuario = ?";
+        String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

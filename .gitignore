@@ -95,3 +95,9 @@ tmp/
 temp/
 *.swp
 *~
+
+# Java / NetBeans
+/build/
+/dist/
+/nbproject/private/
+/*.class
