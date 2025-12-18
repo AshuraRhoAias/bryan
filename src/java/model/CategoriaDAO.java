@@ -15,7 +15,7 @@ public class CategoriaDAO {
      */
     public List<Categoria> obtenerTodas() {
         List<Categoria> categorias = new ArrayList<>();
-        String sql = "SELECT * FROM Categoria ORDER BY nombre";
+        String sql = "SELECT * FROM categorias ORDER BY nombre";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              Statement stmt = conn.createStatement();
@@ -34,7 +34,7 @@ public class CategoriaDAO {
      * Obtiene una categoría por ID
      */
     public Categoria obtenerPorId(int id) {
-        String sql = "SELECT * FROM Categoria WHERE id_categoria = ?";
+        String sql = "SELECT * FROM categorias WHERE id_categoria = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -57,9 +57,9 @@ public class CategoriaDAO {
      */
     public List<Categoria> obtenerPorContenido(int idContenido) {
         List<Categoria> categorias = new ArrayList<>();
-        String sql = "SELECT c.* FROM Categoria c " +
-                    "INNER JOIN Contenido_Categoria cc ON c.id_categoria = cc.id_categoria " +
-                    "WHERE cc.id_contenido = ?";
+        String sql = "SELECT c.* FROM categorias c " +
+                    "INNER JOIN contenido_categorias cc ON c.id_categoria = cc.categoria_id " +
+                    "WHERE cc.contenido_id = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -81,7 +81,7 @@ public class CategoriaDAO {
      * Inserta una nueva categoría
      */
     public boolean insertar(Categoria categoria) {
-        String sql = "INSERT INTO Categoria (nombre, descripcion, icono, color) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO categorias (nombre, descripcion, icono, color) VALUES (?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -104,7 +104,7 @@ public class CategoriaDAO {
      * Actualiza una categoría
      */
     public boolean actualizar(Categoria categoria) {
-        String sql = "UPDATE Categoria SET nombre = ?, descripcion = ?, icono = ?, color = ? WHERE id_categoria = ?";
+        String sql = "UPDATE categorias SET nombre = ?, descripcion = ?, icono = ?, color = ? WHERE id_categoria = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -128,7 +128,7 @@ public class CategoriaDAO {
      * Elimina una categoría
      */
     public boolean eliminar(int id) {
-        String sql = "DELETE FROM Categoria WHERE id_categoria = ?";
+        String sql = "DELETE FROM categorias WHERE id_categoria = ?";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
