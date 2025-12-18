@@ -88,6 +88,7 @@ private static DatabaseConnection instance;
         try {
             if (connection == null || connection.isClosed()) {
                 instance = new DatabaseConnection();
+                return instance.connection;
             }
         } catch (SQLException e) {
             e.printStackTrace();
