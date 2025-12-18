@@ -224,8 +224,8 @@
                 </div>
             </div>
 
-            <div class="article-content">
-                ${contenido.cuerpo.replaceAll("\n", "<br>")}
+            <div class="article-content" style="white-space: pre-wrap;">
+                <c:out value="${contenido.cuerpo}"/>
             </div>
 
             <div class="article-footer">
