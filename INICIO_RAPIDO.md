@@ -1,5 +1,19 @@
 # ⚡ INICIO RÁPIDO - Plataforma IAG
 
+## ⚠️ ERROR COMÚN: NO EJECUTES DatabaseConnection.java
+
+Si ves estos errores:
+```
+"There are not servlet mapping specified in web.xml for DatabaseConnection servlet"
+"Class database.DatabaseConnection does not have a main method"
+```
+
+**❌ NO hagas esto:** Clic derecho en `DatabaseConnection.java` → Run File
+
+**✅ HAZ esto:** Ejecuta el **PROYECTO COMPLETO** (lee abajo)
+
+---
+
 ## 🚨 SOLUCIÓN AL ERROR HTTP 500
 
 Si estás viendo este error:
@@ -74,15 +88,26 @@ mysql -u root < database/schema.sql
 
 ## ✅ PASO 3: Recompilar y Ejecutar
 
+### ⚠️ MUY IMPORTANTE: Ejecuta el PROYECTO, no archivos individuales
+
+**❌ NO HAGAS ESTO:**
+- Clic derecho en `DatabaseConnection.java` → Run File
+- Clic derecho en `LoginServlet.java` → Run File
+- Ejecutar archivos `.jsp` o `.java` individualmente
+
+**✅ HAZ ESTO:**
+
 ### En NetBeans:
 
 1. **Clean and Build** el proyecto
-   - Clic derecho en **PlataformaIAG** → **Clean and Build**
+   - Clic derecho en **PlataformaIAG** (el nodo raíz del proyecto) → **Clean and Build**
    - O presionar `Shift + F11`
+   - Espera a ver "BUILD SUCCESSFUL"
 
 2. **Run** el proyecto
-   - Clic derecho en **PlataformaIAG** → **Run**
+   - Clic derecho en **PlataformaIAG** (el nodo raíz del proyecto) → **Run**
    - O presionar `F6`
+   - NetBeans desplegará la aplicación en el servidor
 
 3. **Acceder a la aplicación**
    - Se abrirá automáticamente en tu navegador
