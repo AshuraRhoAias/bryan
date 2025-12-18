@@ -1,10 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
-    <!-- Página de inicio -->
+
+    <!-- ========================================= -->
+    <!-- CONFIGURACIÓN DE PÁGINA DE INICIO -->
+    <!-- ========================================= -->
     <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Login -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Registro -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>RegistroServlet</servlet-name>
+        <servlet-class>controller.RegistroServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistroServlet</servlet-name>
+        <url-pattern>/registro</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Logout -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Home (lista de contenidos) -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Contenido (detalle individual) -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>ContenidoServlet</servlet-name>
+        <servlet-class>controller.ContenidoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContenidoServlet</servlet-name>
+        <url-pattern>/contenido</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET: Categorías -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>CategoriaServlet</servlet-name>
+        <servlet-class>controller.CategoriaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CategoriaServlet</servlet-name>
+        <url-pattern>/categorias</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET ADMIN: Dashboard -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>controller.admin.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET ADMIN: Contenidos -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>AdminContenidoServlet</servlet-name>
+        <servlet-class>controller.admin.AdminContenidoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminContenidoServlet</servlet-name>
+        <url-pattern>/admin/contenido/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLET ADMIN: Categorías -->
+    <!-- ========================================= -->
+    <servlet>
+        <servlet-name>AdminCategoriasServlet</servlet-name>
+        <servlet-class>controller.admin.AdminCategoriasServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCategoriasServlet</servlet-name>
+        <url-pattern>/admin/categorias</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- CONFIGURACIÓN DE SESIÓN -->
+    <!-- ========================================= -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>

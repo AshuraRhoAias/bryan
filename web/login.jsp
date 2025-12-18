@@ -75,8 +75,8 @@
 
         <div class="mt-6 p-4 bg-gray-100 rounded-lg text-sm text-gray-700">
             <strong>🔑 Credenciales de prueba:</strong><br>
-            Admin: admin@iagplatform.com / admin123<br>
-            Usuario: usuario@test.com / usuario123
+            Admin: admin@plataformaiag.com / admin123<br>
+            Usuario: usuario@plataformaiag.com / user123
         </div>
 
     </div>

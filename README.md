@@ -47,7 +47,7 @@ La **Plataforma IAG** es una aplicación web completa que permite:
 | Componente | Tecnología |
 |------------|------------|
 | **Backend** | Java 21, Jakarta Servlets, JSP |
-| **Frontend** | HTML5, CSS3, JavaScript |
+| **Frontend** | HTML5, Tailwind CSS, JavaScript |
 | **Base de Datos** | MySQL 8.0 |
 | **Servidor** | GlassFish 8.0 / Apache Tomcat 10+ |
 | **Build Tool** | Apache Ant |
@@ -171,12 +171,16 @@ private static final String PASSWORD = "tu_contraseña";
 ### Credenciales de Prueba
 ```
 Admin:
-  Email: admin@example.com
+  Email: admin@plataformaiag.com
   Contraseña: admin123
 
 Usuario:
-  Email: user@example.com
+  Email: usuario@plataformaiag.com
   Contraseña: user123
+
+Developer:
+  Email: bryan@plataformaiag.com
+  Contraseña: admin123
 ```
 
 ---
