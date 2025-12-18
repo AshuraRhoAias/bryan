@@ -1,241 +1,151 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${contenido.titulo} - Plataforma IAG</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        .navbar {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#667eea',
+                        secondary: '#764ba2'
+                    }
+                }
+            }
         }
-
-        .navbar h1 {
-            color: #667eea;
-            font-size: 1.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .back-link {
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .back-link:hover {
-            opacity: 1;
-        }
-
-        .article {
-            background: white;
-            border-radius: 12px;
-            padding: 3rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        .article-header {
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .content-type {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .type-articulo { background: #e3f2fd; color: #1976d2; }
-        .type-tip { background: #fff3e0; color: #f57c00; }
-        .type-noticia { background: #fce4ec; color: #c2185b; }
-        .type-tutorial { background: #e8f5e9; color: #388e3c; }
-        .type-recurso { background: #f3e5f5; color: #7b1fa2; }
-
-        .article-title {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .article-meta {
-            display: flex;
-            gap: 2rem;
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .article-categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-        }
-
-        .category-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .article-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #444;
-        }
-
-        .article-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .article-footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid #f0f0f0;
-            color: #999;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: white;
-            opacity: 0.8;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <h1>🤖 Plataforma IAG</h1>
-        <div class="nav-links">
-            <a href="${pageContext.request.contextPath}/" class="btn btn-secondary">Inicio</a>
-            <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary">Contenidos</a>
-            <c:choose>
-                <c:when test="${sessionScope.usuario != null}">
-                    <c:if test="${sessionScope.usuario.admin}">
-                        <a href="${pageContext.request.contextPath}/admin/dashboard" class="btn btn-secondary">Panel Admin</a>
-                    </c:if>
-                    <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">Cerrar Sesión</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Iniciar Sesión</a>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </nav>
 
-    <div class="container">
-        <a href="${pageContext.request.contextPath}/home" class="back-link">
-            ← Volver a contenidos
+<body class="min-h-screen bg-gradient-to-br from-primary to-secondary font-sans">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-primary">🤖 Plataforma IAG</h1>
+
+    <div class="flex gap-3 items-center">
+        <a href="${pageContext.request.contextPath}/"
+           class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition">
+            Inicio
         </a>
 
-        <article class="article">
-            <div class="article-header">
-                <span class="content-type type-${contenido.tipo}">${contenido.tipo}</span>
+        <a href="${pageContext.request.contextPath}/home"
+           class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition">
+            Contenidos
+        </a>
 
-                <h1 class="article-title">${contenido.titulo}</h1>
+        <c:choose>
+            <c:when test="${sessionScope.usuario != null}">
+                <c:if test="${sessionScope.usuario.admin}">
+                    <a href="${pageContext.request.contextPath}/admin/dashboard"
+                       class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition">
+                        Panel Admin
+                    </a>
+                </c:if>
 
-                <div class="article-meta">
-                    <div class="meta-item">
-                        <span>👁️</span>
-                        <span>${contenido.vistas} vistas</span>
-                    </div>
-                    <div class="meta-item">
-                        <span>📅</span>
-                        <span>
-                            <fmt:formatDate value="${contenido.fechaPublicacion}" pattern="dd/MM/yyyy HH:mm"/>
-                        </span>
-                    </div>
-                    <c:if test="${not empty contenido.nombreAdmin}">
-                        <div class="meta-item">
-                            <span>✍️</span>
-                            <span>${contenido.nombreAdmin}</span>
-                        </div>
-                    </c:if>
-                </div>
+                <a href="${pageContext.request.contextPath}/logout"
+                   class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition">
+                    Cerrar Sesión
+                </a>
+            </c:when>
 
-                <div class="article-categories">
-                    <c:forEach var="cat" items="${contenido.categorias}">
-                        <span class="category-badge" style="background-color: ${cat.color}20; color: ${cat.color};">
-                            ${cat.icono} ${cat.nombre}
-                        </span>
-                    </c:forEach>
-                </div>
-            </div>
-
-            <div class="article-content">
-                ${contenido.cuerpo.replaceAll()}
-            </div>
-
-            <div class="article-footer">
-                <p>Última actualización: <fmt:formatDate value="${contenido.fechaPublicacion}" pattern="dd MMMM yyyy"/></p>
-            </div>
-        </article>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/login"
+                   class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition">
+                    Iniciar Sesión
+                </a>
+            </c:otherwise>
+        </c:choose>
     </div>
+</nav>
 
-    <footer>
-        <p>© 2024 Plataforma IAG - Inteligencia Artificial Generativa</p>
-    </footer>
+<!-- CONTENIDO -->
+<main class="max-w-4xl mx-auto px-6 py-10">
+
+    <a href="${pageContext.request.contextPath}/home"
+       class="inline-block mb-6 text-white opacity-90 hover:opacity-100 transition">
+        ← Volver a contenidos
+    </a>
+
+    <article class="bg-white rounded-2xl shadow-xl p-10">
+
+        <!-- HEADER -->
+        <header class="border-b pb-6 mb-6">
+
+            <!-- Tipo -->
+            <span class="inline-block mb-4 px-4 py-1 rounded-full text-sm font-semibold uppercase
+                <c:choose>
+                    <c:when test="${contenido.tipo == 'articulo'}">bg-blue-100 text-blue-700</c:when>
+                    <c:when test="${contenido.tipo == 'tip'}">bg-orange-100 text-orange-700</c:when>
+                    <c:when test="${contenido.tipo == 'noticia'}">bg-pink-100 text-pink-700</c:when>
+                    <c:when test="${contenido.tipo == 'tutorial'}">bg-green-100 text-green-700</c:when>
+                    <c:otherwise>bg-purple-100 text-purple-700</c:otherwise>
+                </c:choose>
+            ">
+                ${contenido.tipo}
+            </span>
+
+            <!-- Título -->
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                ${contenido.titulo}
+            </h1>
+
+            <!-- Meta -->
+            <div class="flex flex-wrap gap-6 text-gray-500 text-sm">
+                <div class="flex items-center gap-1">
+                    👁️ ${contenido.vistas} vistas
+                </div>
+
+                <div class="flex items-center gap-1">
+                    📅
+                    <fmt:formatDate value="${contenido.fechaPublicacion}" pattern="dd/MM/yyyy HH:mm"/>
+                </div>
+
+                <c:if test="${not empty contenido.nombreAdmin}">
+                    <div class="flex items-center gap-1">
+                        ✍️ ${contenido.nombreAdmin}
+                    </div>
+                </c:if>
+            </div>
+
+            <!-- Categorías -->
+            <div class="flex flex-wrap gap-2 mt-4">
+                <c:forEach var="cat" items="${contenido.categorias}">
+                    <span class="px-3 py-1 rounded-full text-sm font-medium"
+                          style="background-color: ${cat.color}20; color: ${cat.color};">
+                        ${cat.icono} ${cat.nombre}
+                    </span>
+                </c:forEach>
+            </div>
+        </header>
+
+        <!-- CUERPO -->
+        <section class="prose max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap">
+            <c:out value="${contenido.cuerpo}"/>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t mt-10 pt-4 text-sm text-gray-400">
+            Última actualización:
+            <fmt:formatDate value="${contenido.fechaPublicacion}" pattern="dd MMMM yyyy"/>
+        </footer>
+
+    </article>
+</main>
+
+<!-- FOOTER GLOBAL -->
+<footer class="text-center py-6 text-white opacity-80">
+    © 2024 Plataforma IAG - Inteligencia Artificial Generativa
+</footer>
+
 </body>
 </html>
