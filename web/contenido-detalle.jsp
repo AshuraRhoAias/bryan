@@ -225,7 +225,7 @@
             </div>
 
             <div class="article-content">
-                ${contenido.cuerpo.replaceAll("\n", "<br>")}
+                ${contenido.cuerpo.replaceAll()}
             </div>
 
             <div class="article-footer">
